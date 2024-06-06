@@ -12,7 +12,7 @@
   <style>
     .attribution {
       position: fixed;
-      bottom: 5px;
+      top: 5px;
       right: 0;
       left: 0;
       margin: 0 auto;
@@ -92,13 +92,15 @@
           durable rubber outer sole, they’ll withstand everything the weather can offer.
         </p>
         <div class="pricing">
-          <div class="current-price">
-            <span class="visually-hidden">current price</span>
-            <ins class="price">$125.00</ins>
-          </div>
-          <div class="discount">
-            <span class="visually-hidden">discount</span>
-            <span class="price">50%</span>
+          <div class="start-wrapper">
+            <div class="current-price">
+              <span class="visually-hidden">current price</span>
+              <ins class="price">$125.00</ins>
+            </div>
+            <div class="discount">
+              <span class="visually-hidden">discount</span>
+              <span class="price">50%</span>
+            </div>
           </div>
           <div class="previous-price">
             <span class="visually-hidden">previous price</span>
@@ -108,7 +110,7 @@
         <form class="purchase-form">
           <label for="amount" class="input-wrapper">
             <span class="visually-hidden">desired amount</span>
-            <button type="button" id="less" class="button less">
+            <button type="button" id="less" class="button button--amount less">
               <span class="visually-hidden">less</span>
               <svg width="12" height="4" viewbox="0 0 12 4">
                 <path class="icon"
@@ -117,7 +119,7 @@
               </svg>
             </button>
             <input type="text" name="amount" id="amount" class="input" value="0">
-            <button type="button" id="more" class="button more">
+            <button type="button" id="more" class="button button--amount more">
               <span class="visually-hidden">more</span>
               <svg width="12" height="12" viewbox="0 0 12 12">
                 <path class="icon"

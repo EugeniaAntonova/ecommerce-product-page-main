@@ -184,6 +184,7 @@ svg {
     font-size: 28px;
     letter-spacing: .02em;
     text-decoration: none;
+    line-height: 0.6;
 }
 
 .discount {

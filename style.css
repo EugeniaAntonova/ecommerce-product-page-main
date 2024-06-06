@@ -63,6 +63,9 @@
 }
 
 /* hero */
+.hero {
+    padding-bottom: 87px;
+}
 .hero__images-wrapper {
     width: 100%;
     margin-bottom: 24px;
@@ -109,4 +112,34 @@
     height: 100%;
     object-fit: cover;
     object-position: center top;
+}
+
+.hero__content {
+    padding-inline: 24px;
+}
+
+h1.title {
+    margin-bottom: 16px;
+}
+.hero .text {
+    margin-bottom: 24px;
+}
+
+.pricing, .pricing .start-wrapper {
+    display: flex;
+}
+
+.pricing {
+    margin-bottom: 24px;
+    align-items: center;
+}
+.pricing .start-wrapper {
+    margin-right: auto;
+    align-items: end;
+    gap: 12px;
+}
+.purchase-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
