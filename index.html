@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="/theming.css">
+  <link rel="stylesheet" href="/style.css">
+
+  <title>Frontend Mentor | E-commerce product page</title>
+  <style>
+    .attribution {
+      position: fixed;
+      bottom: 5px;
+      right: 0;
+      left: 0;
+      margin: 0 auto;
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: var(--orange);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="page-header container">
+    <nav class="page-nav">
+      <button class="button burger" aria-controls="page-menu" aria-expanded="false">
+        <span class="visually-hidden">site menu</span>
+      </button>
+      <a href="/" class="link logo-link">
+        <span class="visually-hidden">back home</span>
+        <img src="/images/logo.svg" alt="sneakers">
+      </a>
+      <div class="backdrop"></div>
+      <ul class="list page-nav__list">
+        <li><a href="#" class="link page-nav__link">Collections</a></li>
+        <li><a href="#" class="link page-nav__link">Men</a></li>
+        <li><a href="#" class="link page-nav__link">Women</a></li>
+        <li><a href="#" class="link page-nav__link">About</a></li>
+        <li><a href="#" class="link page-nav__link">Contact</a></li>
+      </ul>
+      <a href="#" class="link cart">
+        <span class="visually-hidden">shopping cart</span>
+        <svg width="22" height="20" xmlns="http://www.w3.org/2000/svg">
+          <path class="icon"
+            d="M20.925 3.641H3.863L3.61.816A.896.896 0 0 0 2.717 0H.897a.896.896 0 1 0 0 1.792h1l1.031 11.483c.073.828.52 1.726 1.291 2.336C2.83 17.385 4.099 20 6.359 20c1.875 0 3.197-1.87 2.554-3.642h4.905c-.642 1.77.677 3.642 2.555 3.642a2.72 2.72 0 0 0 2.717-2.717 2.72 2.72 0 0 0-2.717-2.717H6.365c-.681 0-1.274-.41-1.53-1.009l14.321-.842a.896.896 0 0 0 .817-.677l1.821-7.283a.897.897 0 0 0-.87-1.114ZM6.358 18.208a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm10.015 0a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm2.021-7.243-13.8.81-.57-6.341h15.753l-1.383 5.53Z"
+            fill="#69707D" />
+        </svg>
+      </a>
+      <a href="#" class="link profile">
+        <span class="visually-hidden">profile</span>
+        <img src="/images/image-avatar.png" alt>
+      </a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero container">
+      <div class="hero__images-wrapper">
+        <div class="buttons-wrapper">
+          <button type="button" class="button button--slider left"></button>
+          <button type="button" class="button button--slider right"></button>
+        </div>
+        <div class="hero__images">
+          <div>
+            <img src="/images/image-product-1.jpg" alt="product description">
+          </div>
+          <div>
+            <img src="/images/image-product-2.jpg" alt="product description">
+          </div>
+          <div>
+            <img src="/images/image-product-3.jpg" alt="product description">
+          </div>
+          <div>
+            <img src="/images/image-product-4.jpg" alt="product description">
+          </div>
+        </div>
+      </div>
+      <div class="hero__content">
+        <h1 class="title">
+          Sneaker Company
+        </h1>
+        <h2 class="title product-title">
+          Fall Limited Edition Sneakers
+        </h2>
+        <p class="text">
+          These low-profile sneakers are your perfect casual wear companion. Featuring a
+          durable rubber outer sole, they’ll withstand everything the weather can offer.
+        </p>
+        <div class="pricing">
+          <div class="current-price">
+            <span class="visually-hidden">current price</span>
+            <ins class="price">$125.00</ins>
+          </div>
+          <div class="discount">
+            <span class="visually-hidden">discount</span>
+            <span class="price">50%</span>
+          </div>
+          <div class="previous-price">
+            <span class="visually-hidden">previous price</span>
+            <del class="price">$250.00</del>
+          </div>
+        </div>
+        <form class="purchase-form">
+          <label for="amount" class="input-wrapper">
+            <span class="visually-hidden">desired amount</span>
+            <button type="button" id="less" class="button less">
+              <span class="visually-hidden">less</span>
+              <svg width="12" height="4" viewbox="0 0 12 4">
+                <path class="icon"
+                  d="M11.357 3.332A.641.641 0 0 0 12 2.69V.643A.641.641 0 0 0 11.357 0H.643A.641.641 0 0 0 0 .643v2.046c0 .357.287.643.643.643h10.714Z"
+                  fill="#FF7E1B" />
+              </svg>
+            </button>
+            <input type="text" name="amount" id="amount" class="input" value="0">
+            <button type="button" id="more" class="button more">
+              <span class="visually-hidden">more</span>
+              <svg width="12" height="12" viewbox="0 0 12 12">
+                <path class="icon"
+                  d="M12 7.023V4.977a.641.641 0 0 0-.643-.643h-3.69V.643A.641.641 0 0 0 7.022 0H4.977a.641.641 0 0 0-.643.643v3.69H.643A.641.641 0 0 0 0 4.978v2.046c0 .356.287.643.643.643h3.69v3.691c0 .356.288.643.644.643h2.046a.641.641 0 0 0 .643-.643v-3.69h3.691A.641.641 0 0 0 12 7.022Z"
+                  fill="#FF7E1B" />
+              </svg>
+            </button>
+          </label>
+          <button type="submit" class="button button--accent">
+            <svg width="22" height="20" xmlns="http://www.w3.org/2000/svg">
+              <path class="icon"
+                d="M20.925 3.641H3.863L3.61.816A.896.896 0 0 0 2.717 0H.897a.896.896 0 1 0 0 1.792h1l1.031 11.483c.073.828.52 1.726 1.291 2.336C2.83 17.385 4.099 20 6.359 20c1.875 0 3.197-1.87 2.554-3.642h4.905c-.642 1.77.677 3.642 2.555 3.642a2.72 2.72 0 0 0 2.717-2.717 2.72 2.72 0 0 0-2.717-2.717H6.365c-.681 0-1.274-.41-1.53-1.009l14.321-.842a.896.896 0 0 0 .817-.677l1.821-7.283a.897.897 0 0 0-.87-1.114ZM6.358 18.208a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm10.015 0a.926.926 0 0 1 0-1.85.926.926 0 0 1 0 1.85Zm2.021-7.243-13.8.81-.57-6.341h15.753l-1.383 5.53Z"
+                fill="#fff" />
+            </svg>
+            Add to cart
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+  <script src="/main.js"></script>
+</body>
+
+</html>
