@@ -1,57 +1,70 @@
 // ======================================================================== slider
-const slider = document.querySelector('.hero__images');
-const sliderControls = [...document.querySelectorAll('.button--slider')];
-const slides = [...slider.children];
-let slideLength = slider.scrollWidth / slides.length;
 
-const scroll = (evt) => {
-    let left = evt.currentTarget.classList.contains('left');
-    let scrollDirection = left ? -slideLength : slideLength;
-    slider.scrollLeft += scrollDirection;
-    let farLeft = slider.scrollLeft == 0;
-    let farRight = slider.scrollLeft == slider.scrollWidth - slideLength;
-    if (farLeft && left) {
-        slider.scrollLeft = slider.scrollWidth - slideLength;
+function createMobileSldier() {
+    const slider = document.querySelector('.hero__images.mobile-slider');
+    const sliderControls = [...document.querySelectorAll('.button--slider')];
+    const slides = [...slider.children];
+    let slideLength = slider.scrollWidth / slides.length;
+
+    const scroll = (evt) => {
+        let left = evt.currentTarget.classList.contains('left');
+        let scrollDirection = left ? -slideLength : slideLength;
+        slider.scrollLeft += scrollDirection;
+        let farLeft = slider.scrollLeft == 0;
+        let farRight = slider.scrollLeft == slider.scrollWidth - slideLength;
+        if (farLeft && left) {
+            slider.scrollLeft = slider.scrollWidth - slideLength;
+        }
+        if (farRight && !left) {
+            slider.scrollLeft = 0;
+        }
     }
-    if (farRight && !left) {
-        slider.scrollLeft = 0;
+
+    sliderControls.forEach((item) => { item.addEventListener('click', scroll) });
+    window.addEventListener('resize', () => {
+        slideLength = slider.scrollWidth / [...slider.children].length;
+    })
+}
+
+function onWindowSize() {
+    if (window.innerWidth < 850) {
+        createMobileSldier();
     }
 }
 
-sliderControls.forEach((item) => {item.addEventListener('click', scroll)});
+document.addEventListener('DOMContentLoaded', onWindowSize);
+window.addEventListener('resize', onWindowSize);
 
-window.addEventListener('resize', () => {
-    slideLength = slider.scrollWidth / [...slider.children].length;
-})
 
-// ========================================================================= burger
+// ========================================================================= burger and cart
 
 const burger = document.querySelector('.burger');
+const cartControl = document.querySelector('.cart__control');
 
-const burgerHidden = burger.classList.contains('hidden');
-
-const closeBurger = (evt) => {
+const closePopover = (evt) => {
     if (evt.target.classList.contains('backdrop')) {
         burger.setAttribute('aria-expanded', 'false');
-        console.log(burger.getAttribute('aria-expanded'));
+        cartControl.setAttribute('aria-expanded', 'false');
     }
 }
 
-const onBurgerClick = () => {
-    let expanded = burger.getAttribute('aria-expanded') == 'true' ? true : false;
-    burger.setAttribute('aria-expanded', !expanded)
+const onControlerClick = (evt) => {
+    evt.preventDefault();
+    let target = evt.currentTarget;
+    console.log(target);
+    let expanded = target.getAttribute('aria-expanded') == 'true' ? true : false;
+    target.setAttribute('aria-expanded', !expanded)
 
     if (!expanded) {
-        document.addEventListener('click', closeBurger);
+        document.addEventListener('click', closePopover);
     } else {
-        document.removeEventListener('click', closeBurger);
+        document.removeEventListener('click', closePopover);
     }
 
 }
 
-if (!burgerHidden) {
-    burger.addEventListener('click', onBurgerClick)
-}
+burger.addEventListener('click', onControlerClick);
+cartControl.addEventListener('click', onControlerClick);
 
 // =========================================================================
 
