@@ -26,15 +26,52 @@ function createMobileSldier() {
     })
 }
 
-function onWindowSize() {
-    if (window.innerWidth < 850) {
-        createMobileSldier();
+function createDesktopSlider(specifier = '') {
+    const slider = document.querySelector(`.hero__images.desktop-slider${specifier}`);
+    const bigImageWrapper = slider.querySelector('.big-image__wrapper');
+    const thumbnails = [...slider.querySelectorAll('.button--thumbnail')];
+    // const sliderControls = [...slider.querySelectorAll('.button--slider')] || false;
+
+    let activeThumbnail = slider.querySelector('.button--thumbnail.active');
+    let activeSrc = activeThumbnail.querySelector('img').src.replace(/-thumbnail/i, '');
+    let activeAlt = activeThumbnail.querySelector('img').alt;
+    
+    let currentImage = bigImageWrapper.querySelector('img');
+
+    function removeImage(evt) {
+        evt.currentTarget.remove();
+        evt.currentTarget.removeEventListener('animationend', removeImage);
     }
+    function pushNextImage() {
+        let nextImage = document.createElement('img');
+        nextImage.classList.add('big-image');
+        nextImage.classList.add('come');
+        nextImage.src = activeSrc;
+        nextImage.alt = activeAlt;
+
+        currentImage.classList.remove('come');
+        currentImage.classList.add('leave');
+        currentImage.addEventListener('animationend', removeImage);
+        
+        bigImageWrapper.append(nextImage);
+        currentImage = nextImage;
+    }
+
+    function onThumbnailClick(evt) {
+        activeThumbnail.classList.remove('active');
+        evt.currentTarget.classList.add('active');
+        activeThumbnail = evt.currentTarget;
+        activeSrc = activeThumbnail.querySelector('img').src.replace(/-thumbnail/i, '');
+        activeAlt = activeThumbnail.querySelector('img').alt;
+        pushNextImage();
+    }
+
+    thumbnails.forEach((thumbnail) => {
+        thumbnail.addEventListener('click', onThumbnailClick);
+    })
+
+
 }
-
-document.addEventListener('DOMContentLoaded', onWindowSize);
-window.addEventListener('resize', onWindowSize);
-
 
 // ========================================================================= burger and cart
 
@@ -63,8 +100,25 @@ const onControlerClick = (evt) => {
 
 }
 
-burger.addEventListener('click', onControlerClick);
-cartControl.addEventListener('click', onControlerClick);
+
+function onWindowSize() {
+    if (window.innerWidth < 800) {
+        burger.addEventListener('click', onControlerClick);
+    } else {
+        burger.removeEventListener('click', onControlerClick);
+    }
+    cartControl.addEventListener('click', onControlerClick);
+    if (window.innerWidth < 850) {
+        createMobileSldier();
+    } else {
+        createDesktopSlider();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', onWindowSize);
+window.addEventListener('resize', onWindowSize);
+
+
 
 // =========================================================================
 

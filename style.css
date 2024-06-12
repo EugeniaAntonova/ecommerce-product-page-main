@@ -147,7 +147,7 @@
     margin-bottom: 24px;
     position: relative;
 }
-.hero__images.desctop-slider {
+.hero__images.desktop-slider {
     display: none;
 }
 .hero__images.mobile-slider {
@@ -232,6 +232,10 @@
     gap: 16px;
 }
 
+.light-box {
+    display: none;
+}
+
 @media (min-width: 640px) {
     .hero {
         display: grid;
@@ -294,16 +298,63 @@
         display: none;
     }
 
-    .hero__images.desctop-slider {
+    .hero__images.desktop-slider {
         display: grid;
-        grid-template-columns: repeat(auto-fill, 94px);
+        grid-template-columns: repeat(4, minmax(80px, 94px));
         grid-auto-flow: row;
         gap: 24px;
     }
 
-    .hero__images.desctop-slider .big-image {
+    .hero__images.desktop-slider .big-image__wrapper {
         grid-column: 1 / -1;
         border-radius: 16px;
+        overflow: hidden;
+        display: grid;
+    }
+
+    .hero__images.desktop-slider .big-image__wrapper > * {
+        grid-area: 1 / -1;
+    }
+
+    .leave {
+        animation: leave .3s ease-in 1 forwards;
+    }
+
+    .come {
+        animation: come .3s ease-in 1 forwards;
+    }
+
+    .light-box {
+        display: grid;
+        place-items: center;
+        position: fixed;
+        z-index: 5;
+        inset: 0;
+        background-color: hsla(218, 12%, 13%, 0.75);
+    }
+
+    .light-box .hero__images {
+        grid-template-columns: 30px repeat(4, 90px) 30px;
+        grid-template-areas: 
+        'b b b b b b'
+        '. th1 th2 th3 th4 .';
+    }
+
+    .light-box .big-image__wrapper {
+        grid-area: b;
+        position: relative;
+    }
+    .light-box .button--thumbnail:nth-of-type(1) {
+        grid-area: th1;
+    }
+    .light-box .button--thumbnail:nth-of-type(2) {
+        grid-area: th2;
+    }
+    .light-box .button--thumbnail:nth-of-type(3) {
+        grid-area: th3;
+    }
+    .light-box .button--thumbnail:nth-of-type(4) {
+        grid-area: th4;
     }
 
 }
@@ -311,5 +362,25 @@
 @media (min-width: 900px) {
     .logo-link {
         margin-right: 56px;
+    }
+}
+
+@keyframes leave {
+    from {
+        translate: 0 0;
+    }    
+
+    to {
+        translate: -100% 0;
+    }
+}
+
+@keyframes come {
+    from {
+        translate: 100% 0;
+    }    
+
+    to {
+        translate: 0 0;
     }
 }

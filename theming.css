@@ -179,6 +179,26 @@ svg {
     place-items: center;
 }
 
+.button--thumbnail,
+.button--thumbnail img  {
+    border-radius: 14px;
+}
+
+.button--thumbnail {
+    position: relative;
+}
+
+.button--thumbnail::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-color: hsla(0, 0%, 100%, 0.4);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
 @media (hover: hover) {
     .button:is(.more, .less):where(:hover, :focus-visible) {
         outline-color: var(--medium-orange);
@@ -201,6 +221,13 @@ svg {
         transition: fill var(--transition);
         fill: var(--very-dark-blue);
     }
+
+    .button--thumbnail:is(:hover, :focus-visible) {
+        outline: none;
+    }
+    .button--thumbnail:is(:hover, :focus-visible)::after {
+        opacity: 1;
+    }
 }
 
 .button:is(.more, .less):active {
@@ -214,6 +241,13 @@ svg {
 
 .button--delete:active {
     outline: var(--outline);
+}
+
+.button--thumbnail:is(:active, .active) {
+    outline: var(--outline);
+}
+.button--thumbnail:is(:active, .active)::after {
+    opacity: 1;
 }
 
 .price {
@@ -291,6 +325,10 @@ h2.title {
     display: grid;
     place-items: center;
     border-radius: 4px;
+}
+
+.cart__control>* {
+    grid-area: 1 / -1;
 }
 
 .cart__control .icon {
