@@ -1,8 +1,10 @@
 // ======================================================================== slider
 
-function createMobileSldier() {
-    const slider = document.querySelector('.hero__images.mobile-slider');
-    const sliderControls = [...document.querySelectorAll('.button--slider')];
+function createSldier(specifier) {
+    const sliderWrapper = document.querySelector(`.hero__images-wrapper${specifier}`);
+    const slider = sliderWrapper.querySelector('.hero__images-inner');
+    const sliderControls = [...sliderWrapper.querySelectorAll('.button--slider')];
+    const thumbnais = [...sliderWrapper.querySelectorAll('.button--thumbnail')];
     const slides = [...slider.children];
     let slideLength = slider.scrollWidth / slides.length;
 
@@ -26,52 +28,6 @@ function createMobileSldier() {
     })
 }
 
-function createDesktopSlider(specifier = '') {
-    const slider = document.querySelector(`.hero__images.desktop-slider${specifier}`);
-    const bigImageWrapper = slider.querySelector('.big-image__wrapper');
-    const thumbnails = [...slider.querySelectorAll('.button--thumbnail')];
-    // const sliderControls = [...slider.querySelectorAll('.button--slider')] || false;
-
-    let activeThumbnail = slider.querySelector('.button--thumbnail.active');
-    let activeSrc = activeThumbnail.querySelector('img').src.replace(/-thumbnail/i, '');
-    let activeAlt = activeThumbnail.querySelector('img').alt;
-    
-    let currentImage = bigImageWrapper.querySelector('img');
-
-    function removeImage(evt) {
-        evt.currentTarget.remove();
-        evt.currentTarget.removeEventListener('animationend', removeImage);
-    }
-    function pushNextImage() {
-        let nextImage = document.createElement('img');
-        nextImage.classList.add('big-image');
-        nextImage.classList.add('come');
-        nextImage.src = activeSrc;
-        nextImage.alt = activeAlt;
-
-        currentImage.classList.remove('come');
-        currentImage.classList.add('leave');
-        currentImage.addEventListener('animationend', removeImage);
-        
-        bigImageWrapper.append(nextImage);
-        currentImage = nextImage;
-    }
-
-    function onThumbnailClick(evt) {
-        activeThumbnail.classList.remove('active');
-        evt.currentTarget.classList.add('active');
-        activeThumbnail = evt.currentTarget;
-        activeSrc = activeThumbnail.querySelector('img').src.replace(/-thumbnail/i, '');
-        activeAlt = activeThumbnail.querySelector('img').alt;
-        pushNextImage();
-    }
-
-    thumbnails.forEach((thumbnail) => {
-        thumbnail.addEventListener('click', onThumbnailClick);
-    })
-
-
-}
 
 // ========================================================================= burger and cart
 
@@ -108,11 +64,7 @@ function onWindowSize() {
         burger.removeEventListener('click', onControlerClick);
     }
     cartControl.addEventListener('click', onControlerClick);
-    if (window.innerWidth < 850) {
-        createMobileSldier();
-    } else {
-        createDesktopSlider();
-    }
+    createSldier();
 }
 
 document.addEventListener('DOMContentLoaded', onWindowSize);

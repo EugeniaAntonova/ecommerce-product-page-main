@@ -67,47 +67,55 @@
   <main>
     <section class="hero container">
       <div class="hero__images-wrapper">
-        <div class="buttons-wrapper">
-          <button type="button" class="button button--slider left">
-            <span class="visually-hidden">previous</span>
-          </button>
-          <button type="button" class="button button--slider right">
-            <span class="visually-hidden">next</span>
-          </button>
+        <div class="hero__images">
+          <div class="buttons-wrapper">
+            <button type="button" class="button button--slider left">
+              <span class="visually-hidden">previous</span>
+            </button>
+            <button type="button" class="button button--slider right">
+              <span class="visually-hidden">next</span>
+            </button>
+          </div>
+          <div class="hero__images-inner">
+            <div>
+              <img src="/images/image-product-1.jpg" alt="product description">
+            </div>
+            <div>
+              <img src="/images/image-product-2.jpg" alt="product description">
+            </div>
+            <div>
+              <img src="/images/image-product-3.jpg" alt="product description">
+            </div>
+            <div>
+              <img src="/images/image-product-4.jpg" alt="product description">
+            </div>
+          </div>
         </div>
-        <div class="hero__images mobile-slider">
-          <div>
-            <img src="/images/image-product-1.jpg" alt="product description">
-          </div>
-          <div>
-            <img src="/images/image-product-2.jpg" alt="product description">
-          </div>
-          <div>
-            <img src="/images/image-product-3.jpg" alt="product description">
-          </div>
-          <div>
-            <img src="/images/image-product-4.jpg" alt="product description">
-          </div>
-        </div>
-        <div class="hero__images desktop-slider">
-          <div class="big-image__wrapper">
-            <img class="big-image" src="/images/image-product-1.jpg" alt="">
-          </div>
-          <button type="button" class="button button--thumbnail active">
-            <img src="/images/image-product-1-thumbnail.jpg" alt="product">
-          </button>
-          <button type="button" class="button button--thumbnail">
-            <img src="/images/image-product-2-thumbnail.jpg" alt="product">
-          </button>
-          <button type="button" class="button button--thumbnail">
-            <img src="/images/image-product-3-thumbnail.jpg" alt="product">
-          </button>
-          <button type="button" class="button button--thumbnail">
-            <img src="/images/image-product-4-thumbnail.jpg" alt="product">
-          </button>
-        </div>
+        <menu class="hero-images__menu">
+          <li>
+            <button type="button" class="button button--thumbnail active">
+              <img src="/images/image-product-1-thumbnail.jpg" alt="product">
+            </button>
+          </li>
+          <li>
+            <button type="button" class="button button--thumbnail">
+              <img src="/images/image-product-2-thumbnail.jpg" alt="product">
+            </button>
+          </li>
+          <li>
+            <button type="button" class="button button--thumbnail">
+              <img src="/images/image-product-3-thumbnail.jpg" alt="product">
+            </button>
+          </li>
+          <li>
+            <button type="button" class="button button--thumbnail">
+              <img src="/images/image-product-4-thumbnail.jpg" alt="product">
+            </button>
+          </li>
+        </menu>
 
       </div>
+
       <div class="hero__content">
         <h1 class="title">
           Sneaker Company
@@ -168,31 +176,7 @@
       </div>
     </section>
     <!-- <section class="light-box">
-      <div class="hero__images desktop-slider light-box__slider">
-        <div class="big-image__wrapper">
-          <img class="big-image" src="/images/image-product-1.jpg" alt="">
-          <div class="buttons-wrapper">
-            <button type="button" class="button button--slider left">
-              <span class="visually-hidden">previous</span>
-            </button>
-            <button type="button" class="button button--slider right">
-              <span class="visually-hidden">next</span>
-            </button>
-          </div>
-        </div>
-        <button type="button" class="button button--thumbnail active">
-          <img src="/images/image-product-1-thumbnail.jpg" alt="product">
-        </button>
-        <button type="button" class="button button--thumbnail">
-          <img src="/images/image-product-2-thumbnail.jpg" alt="product">
-        </button>
-        <button type="button" class="button button--thumbnail">
-          <img src="/images/image-product-3-thumbnail.jpg" alt="product">
-        </button>
-        <button type="button" class="button button--thumbnail">
-          <img src="/images/image-product-4-thumbnail.jpg" alt="product">
-        </button>
-      </div>
+
     </section> -->
   </main>
   <template class="cart-content-template">
