@@ -1,11 +1,11 @@
 // ======================================================================== slider
 
-function createSldier(specifier) {
+function createSldier(specifier = '') {
     const sliderWrapper = document.querySelector(`.hero__images-wrapper${specifier}`);
     const slider = sliderWrapper.querySelector('.hero__images-inner');
     const sliderControls = [...sliderWrapper.querySelectorAll('.button--slider')];
-    const thumbnais = [...sliderWrapper.querySelectorAll('.button--thumbnail')];
-    const slides = [...slider.children];
+    const thumbnails = [...sliderWrapper.querySelectorAll('.button--thumbnail')];
+    const slides = [...slider.querySelectorAll('div')];
     let slideLength = slider.scrollWidth / slides.length;
 
     const scroll = (evt) => {
@@ -22,7 +22,37 @@ function createSldier(specifier) {
         }
     }
 
+    let activeThumbnail = thumbnails[0];
+
+    thumbnails.forEach((thumbnail) => {
+        thumbnail.addEventListener('click', () => {
+            activeThumbnail.classList.remove('active');
+
+            thumbnail.classList.add('active');
+
+            activeThumbnail = thumbnail;
+
+            slides[thumbnails.indexOf(thumbnail)].scrollIntoView();
+        })
+    })
+
     sliderControls.forEach((item) => { item.addEventListener('click', scroll) });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            let index = slides.indexOf(entry.target);
+            activeThumbnail.classList.remove('active');
+            thumbnails[index].classList.add('active');
+            activeThumbnail = thumbnails[index];
+        })
+    }, {
+        threshold: 1,
+    });
+
+    slides.forEach((slide) => {
+        observer.observe(slide);
+    })
+
     window.addEventListener('resize', () => {
         slideLength = slider.scrollWidth / [...slider.children].length;
     })
