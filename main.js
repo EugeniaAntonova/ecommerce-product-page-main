@@ -1,11 +1,13 @@
 // ======================================================================== slider
 
-function createSldier(specifier = '') {
+function createSldier(specifier = '', activeIndex = 0) {
     const sliderWrapper = document.querySelector(`.hero__images-wrapper${specifier}`);
     const slider = sliderWrapper.querySelector('.hero__images-inner');
     const sliderControls = [...sliderWrapper.querySelectorAll('.button--slider')];
     const thumbnails = [...sliderWrapper.querySelectorAll('.button--thumbnail')];
     const slides = [...slider.querySelectorAll('div')];
+    const lightbox = document.querySelector('.light-box');
+    const closeButton = lightbox.querySelector('.close-lighbox-button');
     let slideLength = slider.scrollWidth / slides.length;
 
     const scroll = (evt) => {
@@ -22,16 +24,17 @@ function createSldier(specifier = '') {
         }
     }
 
-    let activeThumbnail = thumbnails[0];
+    let activeThumbnail = thumbnails[activeIndex];
+
+    const replaceActiveThumbnail = (currentThumbnail) => {
+        activeThumbnail.classList.remove('active');
+        currentThumbnail.classList.add('active');
+        activeThumbnail = currentThumbnail;
+    }
 
     thumbnails.forEach((thumbnail) => {
         thumbnail.addEventListener('click', () => {
-            activeThumbnail.classList.remove('active');
-
-            thumbnail.classList.add('active');
-
-            activeThumbnail = thumbnail;
-
+            replaceActiveThumbnail(thumbnail);
             slides[thumbnails.indexOf(thumbnail)].scrollIntoView();
         })
     })
@@ -41,9 +44,7 @@ function createSldier(specifier = '') {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             let index = slides.indexOf(entry.target);
-            activeThumbnail.classList.remove('active');
-            thumbnails[index].classList.add('active');
-            activeThumbnail = thumbnails[index];
+            replaceActiveThumbnail(thumbnails[index]);
         })
     }, {
         threshold: 1,
@@ -52,6 +53,36 @@ function createSldier(specifier = '') {
     slides.forEach((slide) => {
         observer.observe(slide);
     })
+
+    const handleEsc = (evt) => {
+        if (evt.key === 'Escape') closeLightbox();
+    }
+    const handleSideClick = (evt) => {
+        if (evt.target.classList.contains('light-box')) closeLightbox();
+    }
+
+    const closeLightbox = () => {
+        lightbox.classList.remove('open');
+        closeButton.removeEventListener('click', closeLightbox);
+        lightbox.removeEventListener('click', handleSideClick);
+        document.removeEventListener('keydown', handleEsc);
+    }
+
+    const openLightbox = (index) => {
+        lightbox.classList.add('open');
+        closeButton.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', handleEsc);
+        lightbox.addEventListener('click', handleSideClick);
+        createSldier('.light-box-slider', index);
+    }
+
+    const onSlideClick = (evt) => {
+        openLightbox(slides.indexOf(evt.target.closest('div')));
+    }
+
+    if (!specifier) {
+        slider.addEventListener('click', onSlideClick)
+    }
 
     window.addEventListener('resize', () => {
         slideLength = slider.scrollWidth / [...slider.children].length;
@@ -68,13 +99,13 @@ const closePopover = (evt) => {
     if (evt.target.classList.contains('backdrop')) {
         burger.setAttribute('aria-expanded', 'false');
         cartControl.setAttribute('aria-expanded', 'false');
+        document.removeEventListener('click', closePopover);
     }
 }
 
 const onControlerClick = (evt) => {
     evt.preventDefault();
     let target = evt.currentTarget;
-    console.log(target);
     let expanded = target.getAttribute('aria-expanded') == 'true' ? true : false;
     target.setAttribute('aria-expanded', !expanded)
 
@@ -93,9 +124,9 @@ function onWindowSize() {
     } else {
         burger.removeEventListener('click', onControlerClick);
     }
-    cartControl.addEventListener('click', onControlerClick);
-    createSldier();
 }
+cartControl.addEventListener('click', onControlerClick);
+createSldier();
 
 document.addEventListener('DOMContentLoaded', onWindowSize);
 window.addEventListener('resize', onWindowSize);

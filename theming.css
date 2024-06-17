@@ -434,3 +434,10 @@ h2.title {
         line-height: 1.1;
     }
 }
+
+@media (min-width: 850px) {
+    .button--slider {
+        width: 58px;
+        height: 58px;
+    }
+}

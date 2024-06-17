@@ -331,10 +331,30 @@
     .light-box {
         display: grid;
         place-items: center;
+        justify-content: center;
         position: fixed;
         z-index: 5;
         inset: 0;
         background-color: hsla(218, 12%, 13%, 0.75);
+        opacity: 0;
+        scale: 0;
+        transition: opacity .35s ease-in-out, scale .3s ease-in-out;
+    }
+
+    .light-box .hero__images-wrapper .buttons-wrapper {
+        display: flex;
+        padding-inline: 0;
+        left: -27.5px;
+        right: -27.5px;
+    }
+
+    .light-box.open {
+        opacity: 1;
+        scale: 1;
+    }
+
+    .close-lighbox-button {
+        grid-column: span 1 / -1;
     }
 
     .light-box .hero__images-wrapper {
