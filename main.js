@@ -25,8 +25,11 @@ function createSldier(specifier = '', activeIndex = 0) {
     }
 
     let activeThumbnail = thumbnails[activeIndex];
+    console.log(activeIndex);
+    console.log(activeThumbnail);
 
     const replaceActiveThumbnail = (currentThumbnail) => {
+        console.log('repl');
         activeThumbnail.classList.remove('active');
         currentThumbnail.classList.add('active');
         activeThumbnail = currentThumbnail;
@@ -41,17 +44,23 @@ function createSldier(specifier = '', activeIndex = 0) {
 
     sliderControls.forEach((item) => { item.addEventListener('click', scroll) });
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            let index = slides.indexOf(entry.target);
-            replaceActiveThumbnail(thumbnails[index]);
-        })
-    }, {
-        threshold: 1,
-    });
+    // const observer = new IntersectionObserver((entries) => {
+    //     entries.forEach((entry) => {
+    //         console.log(entry.isIntersecting);
+    //         let index = slides.indexOf(entry.target);
+    //         console.log(index);
+    //         replaceActiveThumbnail(thumbnails[index]);
+    //     })
+    // }, {
+    //     threshold: 1,
+    // });
 
-    slides.forEach((slide) => {
-        observer.observe(slide);
+    // slides.forEach((slide) => {
+    //     observer.observe(slide);
+    // })
+
+    slider.addEventListener('scrollend', () => {
+        replaceActiveThumbnail(thumbnails[slider.scrollLeft / slideLength]);
     })
 
     const handleEsc = (evt) => {
