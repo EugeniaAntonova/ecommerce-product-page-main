@@ -6,6 +6,7 @@
 .page-nav {
     padding: 24px;
     display: grid;
+    align-items: center;
     grid-template-columns: auto auto 1fr auto auto;
     grid-template-areas:
         'burger logo . cart avatar';
@@ -42,19 +43,18 @@
     padding: 2px 8px;
     border-radius: 50%;
     position: relative;
-    left: 4px;
-    bottom: 4px;
+    left: -6px;
+    bottom: -6px;
 }
 
 .cart {
+    width: calc(100% - 16px);
+    max-width: 360px;
     max-height: 0;
     overflow-y: auto;
     position: fixed;
     z-index: 3;
-    top: 80px;
-    left: 8px;
-    right: 8px;
-    transform: rotateX(90deg);
+    transform: scaleY(0);
     transform-origin: top;
     display: grid;
     grid-template-rows: auto 1fr;
@@ -62,10 +62,6 @@
     border-radius: 16px;
     box-shadow: 0 10px 20px -10px var(--very-dark-blue);
     transition: transform .3s ease-in-out, max-height .5s ease-in-out;
-}
-
-.cart:has(.cart__content) {
-    min-height: fit-content;
 }
 
 .cart h3.title {
@@ -78,6 +74,7 @@
 .cart b.text {
     align-self: center;
     justify-self: center;
+    padding: 92px;
 }
 
 .profile {
@@ -98,7 +95,7 @@
 
 .backdrop {
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     inset: 0;
     scale: 0;
     opacity: 0;
@@ -118,19 +115,12 @@
 
 .cart__control[aria-expanded="true"] {
     position: relative;
-    z-index: 2;
+    z-index: 4;
     background-color: #fff;
 }
 
 .cart__control[aria-expanded="true"]+.cart {
-    transform: rotateX(0);
-    max-height: 60vh;
-    max-height: 60svh;
-    height: 256px;
-}
-
-.cart__control[aria-expanded="true"]+.cart:has(.cart__content) {
-    transform: rotateX(0);
+    transform: scaleY(1);
     max-height: 60vh;
     max-height: 60svh;
     height: fit-content;
@@ -261,6 +251,7 @@
 
     .page-nav__list {
         position: static;
+        z-index: 0;
         grid-area: menu;
         display: flex;
         gap: 32px;

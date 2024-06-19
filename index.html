@@ -55,7 +55,13 @@
       </a>
       <article class="cart" id="cart">
         <h3 class="title">Cart</h3>
-        <b class="text">Your cart is empty</b>
+        <div class="cart__content hidden">
+          <ul class="cart__list list">
+            
+          </ul>
+          <a href="#" class="button button--accent js-checkout">Checkout</a>
+        </div>
+        <b class="text filler js-filler">Your cart is empty</b>
       </article>
       <a href="#" class="link profile">
         <span class="visually-hidden">profile</span>
@@ -93,7 +99,7 @@
         </div>
         <menu class="hero-images__menu">
           <li>
-            <button type="button" class="button button--thumbnail active">
+            <button type="button" class="button button--thumbnail">
               <img src="/images/image-product-1-thumbnail.jpg" alt="product">
             </button>
           </li>
@@ -144,6 +150,10 @@
           </div>
         </div>
         <form class="purchase-form">
+          <input type="hidden" name="name" value="Fall limited edition sneakers">
+          <input type="hidden" name="price" value="125">
+          <input type="hidden" name="picture" value="../images/image-product-1-thumbnail.jpg">
+
           <label for="amount" class="input-wrapper">
             <span class="visually-hidden">desired amount</span>
             <button type="button" id="less" class="button button--amount less">
@@ -211,7 +221,7 @@
         </div>
         <menu class="hero-images__menu">
           <li>
-            <button type="button" class="button button--thumbnail active">
+            <button type="button" class="button button--thumbnail">
               <img src="/images/image-product-1-thumbnail.jpg" alt="product">
             </button>
           </li>
@@ -236,8 +246,6 @@
     </section>
   </main>
   <template class="cart-content-template">
-    <div class="cart__content">
-      <ul class="cart__list list">
         <li>
           <img class="cart__img" src="#" alt="">
           <div class="text cart__descr">
@@ -256,9 +264,6 @@
             </svg>
           </button>
         </li>
-      </ul>
-      <a href="#" class="button button--accent">Checkout</a>
-    </div>
   </template>
 
   <div class="attribution">
