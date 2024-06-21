@@ -402,7 +402,7 @@ h2.title {
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    background: #fff url('/images/icon-next.svg') no-repeat center;
+    background: #fff url('./images/icon-next.svg') no-repeat center;
     background-size: 10px 15px;
 }
 
