@@ -418,14 +418,33 @@ h2.title {
         font-weight: 400;
         color: var(--grayish-blue);
         padding-block: 42px;
-        border-bottom: 2px solid transparent;
-        border-radius: 0;
+        /* border-bottom: 2px solid transparent; */
+        /* border-radius: 0; */
         transition: var(--transition);
+        position: relative;
+    }
+
+    .page-nav__link::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--orange);
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform var(--transition);
     }
     .page-nav__link:is(:hover, :focus-visible, :active) {
         outline: none;
         color: var(--very-dark-blue);
-        border-bottom-color: var(--orange);
+        /* border-bottom-color: var(--orange); */
+    }
+
+    .page-nav__link:is(:hover, :focus-visible, :active)::after {
+        transform: scaleX(1);
     }
 
     .profile {

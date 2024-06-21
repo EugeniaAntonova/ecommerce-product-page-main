@@ -21,6 +21,8 @@
 
 .logo-link {
     grid-area: logo;
+    outline-color: var(--orange);
+    outline-offset: 16px;
 }
 
 .cart__control {
@@ -346,6 +348,11 @@
 
     .close-lighbox-button {
         grid-column: span 1 / -1;
+    }
+
+    .close-lighbox-button:is(:hover, :active, :focus-visible) svg path {
+        transition: fill var(--transition);
+        fill: var(--orange);
     }
 
     .light-box .hero__images-wrapper {

@@ -1,6 +1,6 @@
 // ======================================================================== slider
 (function () {
-    let slideNumber = 0;
+
     class Slider {
         constructor(name, index) {
             this.sliderWrapper = document.querySelector(name);
@@ -25,6 +25,7 @@
                 this.slider.scrollLeft = this.slider.scrollWidth - this.slideLength;
             }
             if (farRight && !left) {
+                console.log('right end')
                 this.slider.scrollLeft = 0;
             }
         }
@@ -75,117 +76,64 @@
         unsyncronizeScroll() {
             this.slider.removeEventListener('scrollend', this.onSliderScrollFunc);
         }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        let test = new Slider('.hero__images-wrapper', 0);
-        if (window.innerWidth < 850) {
-            test.activateSliderControls();
-            return;
+        activateSlideClick() {
+            this.slides.forEach((slide) => {
+                slide.addEventListener('click', (evt) => {
+                    if (window.innerWidth < 850) return;
+                    openLightbox(this.slides.indexOf(evt.target.closest('div')));
+                })
+            })
         }
-        test.initializeThumbnail();
-        test.activateThumbnails();
-        test.syncronizeScroll();
+    }
+    const lightbox = document.querySelector('.light-box');
+    const closeButton = lightbox.querySelector('.close-lighbox-button');
 
-        window.addEventListener('resize', () => {
-            window.innerWidth < 850 ? test.activateSliderControls() : test.deactivateSliderControls();
-            window.innerWidth < 850 ? test.deactivateThumbnails() : test.activateThumbnails();
-            window.innerWidth < 850 ? test.unsyncronizeScroll() : test.syncronizeScroll();
-        })
+    let lightBoxSlider = new Slider('.hero__images-wrapper.light-box-slider', 0);
+    lightBoxSlider.activateSliderControls();
+    lightBoxSlider.initializeThumbnail();
+    lightBoxSlider.activateThumbnails();
+    lightBoxSlider.syncronizeScroll();
+
+    let heroSlider = new Slider('.hero__images-wrapper', 0);
+    if (window.innerWidth < 850) {
+        heroSlider.activateSliderControls();
+        return;
+    }
+    heroSlider.initializeThumbnail();
+    heroSlider.activateThumbnails();
+    heroSlider.syncronizeScroll();
+    heroSlider.activateSlideClick();
+
+    window.addEventListener('resize', () => {
+        window.innerWidth < 850 ? heroSlider.activateSliderControls() : heroSlider.deactivateSliderControls();
+        window.innerWidth < 850 ? heroSlider.deactivateThumbnails() : heroSlider.activateThumbnails();
+        window.innerWidth < 850 ? heroSlider.unsyncronizeScroll() : heroSlider.syncronizeScroll();
     })
 
+    function handleEsc(evt) {
+        if (evt.key === 'Escape') closeLightbox();
+    }
+    function handleSideClick(evt) {
+        if (evt.target.classList.contains('light-box')) closeLightbox();
+    }
 
-    let test2 = new Slider('.hero__images-wrapper.light-box-slider', 3);
-    test2.activateSliderControls();
-    test2.initializeThumbnail();
-    test2.activateThumbnails();
-    test2.syncronizeScroll();
+    function closeLightbox() {
+        lightbox.classList.remove('open');
+        closeButton.removeEventListener('click', closeLightbox);
+        lightbox.removeEventListener('click', handleSideClick);
+        document.removeEventListener('keydown', handleEsc);
+    }
+
+    function openLightbox(index) {
+        lightbox.classList.add('open');
+        closeButton.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', handleEsc);
+        lightbox.addEventListener('click', handleSideClick);
+        lightBoxSlider.replaceActiveThumbnail(lightBoxSlider.thumbnails[index]);
+        setTimeout(() => {lightBoxSlider.slides[index].scrollIntoView();}, 200);
+    }
 }
 )()
-
-// function createSldier(specifier = '', activeIndex = 0) {
-//     const sliderWrapper = document.querySelector(`.hero__images-wrapper${specifier}`);
-//     const slider = sliderWrapper.querySelector('.hero__images-inner');
-//     const sliderControls = [...sliderWrapper.querySelectorAll('.button--slider')];
-//     const thumbnails = [...sliderWrapper.querySelectorAll('.button--thumbnail')];
-//     const slides = [...slider.querySelectorAll('div')];
-//     // const lightbox = document.querySelector('.light-box');
-//     // const closeButton = lightbox.querySelector('.close-lighbox-button');
-//     let slideLength = slider.scrollWidth / slides.length;
-
-//     const scroll = (evt) => {
-//         let left = evt.currentTarget.classList.contains('left');
-//         let scrollDirection = left ? -slideLength : slideLength;
-//         slider.scrollLeft += scrollDirection;
-//         let farLeft = slider.scrollLeft == 0;
-//         let farRight = slider.scrollLeft == slider.scrollWidth - slideLength;
-//         if (farLeft && left) {
-//             slider.scrollLeft = slider.scrollWidth - slideLength;
-//         }
-//         if (farRight && !left) {
-//             slider.scrollLeft = 0;
-//         }
-//     }
-
-//     let activeThumbnail = thumbnails[0];
-
-//     const replaceActiveThumbnail = (currentThumbnail) => {
-//         activeThumbnail.classList.remove('active');
-//         currentThumbnail.classList.add('active');
-//         activeThumbnail = currentThumbnail;
-//     }
-
-//     // replaceActiveThumbnail(thumbnails[activeIndex]);
-//     // slides[thumbnails[activeIndex]].scrollIntoView();
-
-//     thumbnails.forEach((thumbnail) => {
-//         thumbnail.addEventListener('click', () => {
-//             replaceActiveThumbnail(thumbnail);
-//             slides[thumbnails.indexOf(thumbnail)].scrollIntoView();
-//         })
-//     })
-
-//     sliderControls.forEach((item) => { item.addEventListener('click', scroll) });
-
-//     slider.addEventListener('scrollend', () => {
-//         replaceActiveThumbnail(thumbnails[slider.scrollLeft / slideLength]);
-//     })
-
-//     const handleEsc = (evt) => {
-//         if (evt.key === 'Escape') closeLightbox();
-//     }
-//     const handleSideClick = (evt) => {
-//         if (evt.target.classList.contains('light-box')) closeLightbox();
-//     }
-
-//     const closeLightbox = () => {
-//         lightbox.classList.remove('open');
-//         closeButton.removeEventListener('click', closeLightbox);
-//         lightbox.removeEventListener('click', handleSideClick);
-//         document.removeEventListener('keydown', handleEsc);
-//     }
-
-//     const openLightbox = (index) => {
-//         lightbox.classList.add('open');
-//         closeButton.addEventListener('click', closeLightbox);
-//         document.addEventListener('keydown', handleEsc);
-//         lightbox.addEventListener('click', handleSideClick);
-//         createSldier('.light-box-slider', index);
-//     }
-
-//     const onSlideClick = (evt) => {
-//         openLightbox(slides.indexOf(evt.target.closest('div')));
-//     }
-
-//     if (!specifier) {
-//         slider.addEventListener('click', onSlideClick)
-//     }
-
-//     window.addEventListener('resize', () => {
-//         slideLength = slider.scrollWidth / [...slider.children].length;
-//     })
-// }
-
 
 // ========================================================================= burger and cart
 
@@ -272,6 +220,8 @@ const cartContent = document.querySelector('.cart__content');
 const filler = document.querySelector('.js-filler');
 const cartCounter = document.querySelector('.cart__counter');
 
+let items = {};
+
 amountInput.addEventListener('keydown', (evt) => {
     if (!evt.key.match(/\d|delete|backspace|arrow.+|tab|enter/i)) evt.preventDefault();
 })
@@ -282,21 +232,21 @@ let purchaseAmount = Number(sessionStorage.getItem('purchase amount')) || 0;
 
 function isEmpty(obj) {
     for (let key in obj) {
-      return false;
+        return false;
     }
     return true;
-  }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     amountInput.value = purchaseAmount;
-    
-    let previousCartItems = JSON.parse(sessionStorage.getItem('contents'));
-    let empty = isEmpty(previousCartItems);
+
+    items = JSON.parse(sessionStorage.getItem('contents')) || {};
+    let empty = isEmpty(items);
     if (!empty) {
         let total = 0;
-        for (let key in previousCartItems) {
-            let cartItem = createCartItem(previousCartItems[key]);
-            total += previousCartItems[key].amount;
+        for (let key in items) {
+            let cartItem = createCartItem(items[key]);
+            total += items[key].amount;
             cartList.append(cartItem);
             showCartContents();
             cartCounter.textContent = total;
@@ -316,7 +266,7 @@ amountControls.forEach((item) => {
     })
 })
 
-const items = {};
+
 
 const createCartItem = (data) => {
     const cartItem = cartItemTemplate.cloneNode(true);
@@ -327,12 +277,29 @@ const createCartItem = (data) => {
     cartItem.querySelector('.cart__img').src = data.src;
     cartItem.querySelector('.cart__img').alt = data.name;
 
+    const deleteButton = cartItem.querySelector('.button--delete');
+
+    deleteButton.addEventListener('click', (evt) => {
+        evt.target.closest('li').remove();
+        delete items[data.name];
+        sessionStorage.setItem('contents', JSON.stringify(items));
+        if (isEmpty(items)) {
+            hideCartContents();
+            cartCounter.textContent = '';
+        }
+    })
+
     return cartItem;
 }
 
 function showCartContents() {
     cartContent.classList.remove('hidden');
     filler.classList.add('hidden');
+}
+
+function hideCartContents() {
+    cartContent.classList.add('hidden');
+    filler.classList.remove('hidden');
 }
 
 const onFormSubmit = (evt) => {
@@ -343,9 +310,14 @@ const onFormSubmit = (evt) => {
     const amount = parseInt(amountInput.value);
 
     let itemName = name;
-    if (itemName in items) {
-        items[itemName].amount = amount;
+    if (!isEmpty(items)) {
+        if (itemName in items) {
+            items[itemName].amount = amount;
+        } else {
+            items[itemName] = { src, name, price, amount };
+        }
     } else {
+        console.log(items);
         items[itemName] = { src, name, price, amount };
     }
 
