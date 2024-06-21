@@ -111,13 +111,13 @@ svg {
 }
 
 .burger[aria-expanded="false"] {
-    background: url('/images/icon-menu.svg') no-repeat 50% 50%;
+    background: url('./images/icon-menu.svg') no-repeat 50% 50%;
 }
 
 .burger[aria-expanded="true"] {
     width: 24px;
     height: 24px;
-    background: url('/images/icon-close.svg') no-repeat 50% 50%;
+    background: url('./images/icon-close.svg') no-repeat 50% 50%;
 }
 
 .burger:active {
