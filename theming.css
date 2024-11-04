@@ -254,6 +254,12 @@ svg {
     opacity: 1;
 }
 
+.button--accent:disabled {
+    background-color: var(--grayish-blue);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
 .price {
     font-weight: 700;
 }
