@@ -229,7 +229,7 @@ amountInput.addEventListener('keydown', (evt) => {
 
 // here i do not have any backend, so to show the functionality, i have chosen to use session and local storage
 
-let purchaseAmount = Number(sessionStorage.getItem('purchase amount')) || 0;
+let purchaseAmount = Number(sessionStorage.getItem('purchase amount')) || 1;
 
 function isEmpty(obj) {
     for (let key in obj) {
