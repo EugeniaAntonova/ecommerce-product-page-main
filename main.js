@@ -209,6 +209,7 @@ window.addEventListener('resize', onWindowSize);
 // =========================================================================
 
 const form = document.querySelector('.purchase-form');
+const submitButton = form.querySelector('button[type="submit"]');
 const amountInput = form.querySelector('input[name="amount"]');
 const priceInput = form.querySelector('input[name="price"]');
 const nameInput = form.querySelector('input[name="name"]');
@@ -261,6 +262,7 @@ amountControls.forEach((item) => {
             less = 0;
         }
         purchaseAmount += evt.currentTarget.id === 'less' ? less : 1;
+        purchaseAmount > 0 ? submitButton.removeAttribute('disabled') : submitButton.setAttribute('disabled', true)
         amountInput.value = purchaseAmount;
         sessionStorage.setItem('purchase amount', purchaseAmount)
     })
